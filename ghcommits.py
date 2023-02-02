@@ -2,7 +2,6 @@ import json
 import argparse
 import requests
 import os
-from dotenv import load_dotenv
 from pathlib import Path
 
 # the function takes nested dictionary as argument.
@@ -21,13 +20,11 @@ def print_commit_attr(commitjson):
 # function which dumps output to filename passed in the argument
 
 def dumptofile(data, filename):
-    file_path = str(Path.cwd()) + filename
-    file = Path(file_path)
-    while (file.is_dir() or file.exists()): 
+    while (Path(filename).is_dir() or Path(filename).exists()): 
         break
     else: 
-        file.touch()
-        file.write_text(data)
+        Path(filename).touch()
+        Path(filename).write_text(data)
 
 
 # parse arguments
@@ -43,8 +40,6 @@ args = parser.parse_args()
 
 # Set headers and token
 
-load_dotenv()
-
 token = os.getenv('GITHUB_API_TOKEN', '...')
 url = f"https://api.github.com/repos/{args.ownername}/{args.reponame}/commits"
 headers = {'Authorization': f'token {token}'}
@@ -52,7 +47,6 @@ headers = {'Authorization': f'token {token}'}
 # pass the response to json dictionary and run the script passing the dict as an argument to iteration function
 # dump the output to file if arg was speficied
 
-report = print_commit_attr(requests.get(url, headers=headers).json())
 if args.fileout: 
-    dumptofile(report, args.fileout)
+    dumptofile(str(print_commit_attr(requests.get(url, headers=headers).json())), args.fileout)
 else: exit
