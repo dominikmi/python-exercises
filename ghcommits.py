@@ -21,20 +21,20 @@ def print_commit_attr(commitjson):
 # function which dumps output to filename passed in the argument
 
 def dumptofile(data, filename):
-    path = Path.cwd()
-    filename = path + filename
-    while (filename.is_dir() or filename.exists()): 
+    file_path = str(Path.cwd()) + filename
+    file = Path(file_path)
+    while (file.is_dir() or file.exists()): 
         break
     else: 
-        filename.touch()
-        filename.write_text(data)
+        file.touch()
+        file.write_text(data)
 
 
 # parse arguments
 
 parser = argparse.ArgumentParser(
     prog='commitcheck',
-    description='List out last 30 commits for given repository')
+    description='it will list last 30 commits for given repository')
 
 parser.add_argument("-r", "--reponame", type=str, help="Repository Name")
 parser.add_argument("-o", "--ownername", type=str, help="Owner Name")
@@ -52,7 +52,7 @@ headers = {'Authorization': f'token {token}'}
 # pass the response to json dictionary and run the script passing the dict as an argument to iteration function
 # dump the output to file if arg was speficied
 
-data = print_commit_attr(requests.get(url, headers=headers).json())
+report = print_commit_attr(requests.get(url, headers=headers).json())
 if args.fileout: 
-    dumptofile(data, args.fileout)
+    dumptofile(report, args.fileout)
 else: exit
