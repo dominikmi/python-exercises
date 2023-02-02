@@ -1,1 +1,0 @@
-Number of commits in the repository: my-fs-app : 30
