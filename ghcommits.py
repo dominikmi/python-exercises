@@ -18,6 +18,18 @@ def print_commit_attr(commitjson):
     print("-" * len(line))
     print(f"Number of commits in the repository: {args.reponame} : {dict_len}")
 
+# function which dumps output to filename passed in the argument
+
+def dumptofile(data, filename):
+    path = Path.cwd()
+    filename = path + filename
+    while (filename.is_dir() or filename.exists()): 
+        break
+    else: 
+        filename.touch()
+        filename.write_text(data)
+
+
 # parse arguments
 
 parser = argparse.ArgumentParser(
@@ -26,6 +38,7 @@ parser = argparse.ArgumentParser(
 
 parser.add_argument("-r", "--reponame", type=str, help="Repository Name")
 parser.add_argument("-o", "--ownername", type=str, help="Owner Name")
+parser.add_argument("-f", "--fileout", type=str, help="Output filename")
 args = parser.parse_args()
 
 # Set headers and token
@@ -37,5 +50,9 @@ url = f"https://api.github.com/repos/{args.ownername}/{args.reponame}/commits"
 headers = {'Authorization': f'token {token}'}
 
 # pass the response to json dictionary and run the script passing the dict as an argument to iteration function
+# dump the output to file if arg was speficied
 
-print_commit_attr(requests.get(url, headers=headers).json())
+data = print_commit_attr(requests.get(url, headers=headers).json())
+if args.fileout: 
+    dumptofile(data, args.fileout)
+else: exit
