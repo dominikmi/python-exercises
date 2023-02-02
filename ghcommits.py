@@ -48,8 +48,8 @@ url = f"https://api.github.com/repos/{cliargs.ownername}/{cliargs.reponame}/comm
 headers = {'Authorization': f'token {token}'}
 
 # pass the response to json dictionary and run the script passing the dict as an argument to iteration function
-# dump the output to file if arg was speficied
+# dump the output to file if arg was speficied - if output file is specified pass 2 args into the function, else pass just one arg.
 
 if cliargs.fileout: 
-    print_commit_attr((requests.get(url, headers=headers).json()), cliargs.fileout)
+    print_commit_attr(requests.get(url, headers=headers).json(), cliargs.fileout)
 else: print_commit_attr(requests.get(url, headers=headers).json())
