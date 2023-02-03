@@ -14,6 +14,8 @@ Testing and upskilling in Python
 
 1. `ghcommits.py` takes history of commits for given user's name and repo.
 
+Install required modules within your venv with `pip install -r requirements.txt `
+
 ```txt
 usage: ghcommits [-h] [-r REPONAME] [-o OWNERNAME] [-f FILEOUT]
 
