@@ -9,18 +9,20 @@ from pathlib import Path
 def print_commit_attr(*args):
     index = 0
     number_args=len(args)
-    dict_len = len(args[0])
+    dict_json = args[0]
+    dict_len = len(dict_json)
+    if number_args == 2: filename=args[1]
     while (index < dict_len):
-        vals = args[0][index]
+        vals = dict_json[index]
         line = f'Date: {vals["commit"]["author"]["date"]}, Author: {vals["commit"]["author"]["name"]}, Message: {vals["commit"]["message"]}'
         if number_args == 1: 
             print(line)
         else:
-            while (Path(args[1]).is_dir() or Path(args[1]).exists()): 
+            while (Path(filename).is_dir() or Path(filename).exists()): 
                 break
             else: 
-                Path(args[1]).touch()
-                Path(args[1]).write_text(line)
+                Path(filename).touch()
+                Path(filename).write_text(line)
         index += 1
     if number_args == 1: 
         print("-" * len(line))
