@@ -42,3 +42,8 @@ if cliargs.fileout:
 
 else: 
   print_commit_attr_to_screen(output.json())
+
+# to do:
+# - error handling, parsing parameters
+# - parameter parser put into function
+# - print_commit_attr_to_screen include return list (each line append to it) to reuse in other function
