@@ -2,7 +2,7 @@ import json
 import argparse
 import requests
 import os
-from pathlib import Path
+import contextlib
 
 # the function takes nested dictionary as argument
 
@@ -34,7 +34,13 @@ output = requests.get(url,headers=headers)
 # To fix issue with wiriting to file
 
 if cliargs.fileout:
-  Path(cliargs.fileout).touch() 
-  Path(cliargs.fileout).write_text(str(print_commit_attr_to_screen(output.json())))
+
+  with open(cliargs.fileout, "w") as external_file:
+    with contextlib.redirect_stdout(external_file):
+      print_commit_attr_to_screen(output.json())
+  external_file.close()
+
+#  Path(cliargs.fileout).touch() 
+#  Path(cliargs.fileout).write_text(str(print_commit_attr_to_screen(output.json())))
 else: 
   print_commit_attr_to_screen(output.json())
