@@ -31,7 +31,7 @@ headers = {'Authorization': f'token {token}'}
 
 output = requests.get(url,headers=headers)
 
-# To fix issue with wiriting to file
+# If output file is specified dump stdout there, othwerwise print on screen
 
 if cliargs.fileout:
 
@@ -40,7 +40,5 @@ if cliargs.fileout:
       print_commit_attr_to_screen(output.json())
   external_file.close()
 
-#  Path(cliargs.fileout).touch() 
-#  Path(cliargs.fileout).write_text(str(print_commit_attr_to_screen(output.json())))
 else: 
   print_commit_attr_to_screen(output.json())
