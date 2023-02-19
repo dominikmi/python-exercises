@@ -12,7 +12,13 @@ def print_commit_attr_to_screen(*args):
     for vals in arg:
       line = f'Date: {vals["commit"]["author"]["date"]},Author: {vals["commit"]["author"]["name"]},Message: {vals["commit"]["message"]}'
       print(line)
-        
+
+def print_commit_attr_to_file(filename,dict):
+  with open(filename, "w") as external_file:
+    with contextlib.redirect_stdout(external_file):
+      print_commit_attr_to_screen(dict)
+  external_file.close()
+
 # parse arguments, there can be 2 - repo name and owner's name or 3 - + output filename
 
 parser = argparse.ArgumentParser(
@@ -30,19 +36,12 @@ load_dotenv()
 
 token = os.getenv('GITHUB_API_TOKEN')
 url = f"https://api.github.com/repos/{cliargs.ownername}/{cliargs.reponame}/commits"
-headers = {'Authorization': f'token {token}'}
-
-output = requests.get(url,headers=headers)
+output = requests.get(url,headers={'Authorization': f'token {token}'})
 
 # If output file is specified dump stdout there, othwerwise print on screen
 
 if cliargs.fileout:
-
-  with open(cliargs.fileout, "w") as external_file:
-    with contextlib.redirect_stdout(external_file):
-      print_commit_attr_to_screen(output.json())
-  external_file.close()
-
+  print_commit_attr_to_file(cliargs.fileout, output.json())
 else: 
   print_commit_attr_to_screen(output.json())
 
