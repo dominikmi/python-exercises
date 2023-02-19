@@ -7,11 +7,10 @@ import contextlib
 
 # the function takes nested dictionary as argument
 
-def print_commit_attr_to_screen(*args):
-  for arg in args:
-    for vals in arg:
-      line = f'Date: {vals["commit"]["author"]["date"]},Author: {vals["commit"]["author"]["name"]},Message: {vals["commit"]["message"]}'
-      print(line)
+def print_commit_attr_to_screen(dict):
+  for vals in dict:
+    line = f'Date: {vals["commit"]["author"]["date"]},Author: {vals["commit"]["author"]["name"]},Message: {vals["commit"]["message"]}'
+    print(line)
 
 def print_commit_attr_to_file(filename,dict):
   with open(filename, "w") as external_file:
@@ -50,5 +49,4 @@ else:
 
 # to do:
 # - error handling, parsing parameters
-# - parameter parser put into function
 # - print_commit_attr_to_screen include return list (each line append to it) to reuse in other function
