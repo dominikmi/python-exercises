@@ -42,8 +42,11 @@ output = requests.get(url,headers={'Authorization': f'token {token}'})
 
 if cliargs.fileout:
   print_commit_attr_to_file(cliargs.fileout, output.json())
-else: 
+elif not (cliargs.fileout and output): 
   print_commit_attr_to_screen(output.json())
+else:
+  error_mesg = "Oops, no parameters, no data.."
+  print(error_mesg)
 
 # to do:
 # - error handling, parsing parameters
