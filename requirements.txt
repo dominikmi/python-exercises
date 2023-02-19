@@ -1,3 +1,5 @@
 argparse
 requests
 pathlib
+hvac
+python-dotenv

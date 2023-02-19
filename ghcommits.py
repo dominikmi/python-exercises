@@ -2,6 +2,7 @@ import json
 import argparse
 import requests
 import os
+from dotenv import load_dotenv
 import contextlib
 
 # the function takes nested dictionary as argument
@@ -25,7 +26,9 @@ cliargs = parser.parse_args()
 
 # Set headers and token - to be improved
 
-token = os.getenv('GITHUB_API_TOKEN', '...')
+load_dotenv()
+
+token = os.getenv('GITHUB_API_TOKEN')
 url = f"https://api.github.com/repos/{cliargs.ownername}/{cliargs.reponame}/commits"
 headers = {'Authorization': f'token {token}'}
 
