@@ -1,0 +1,6 @@
+.env
+env
+.idea
+.vscode
+activate.txt
+Python.code-workspace
