@@ -1,22 +1,22 @@
+import contextlib
 import json
 import argparse
 import requests
 import os
 from dotenv import load_dotenv
-import contextlib
 
 # the function takes nested dictionary as argument
 
 def print_commit_attr_to_screen(dict):
-  for vals in dict:
-    line = f'Date: {vals["commit"]["author"]["date"]},Author: {vals["commit"]["author"]["name"]},Message: {vals["commit"]["message"]}'
-    print(line)
+	for vals in dict:
+		line = f'Date: {vals["commit"]["author"]["date"]},Author: {vals["commit"]["author"]["name"]},Message: {vals["commit"]["message"]}'
+		print(line)
 
 def print_commit_attr_to_file(filename,dict):
-  with open(filename, "w") as external_file:
-    with contextlib.redirect_stdout(external_file):
-      print_commit_attr_to_screen(dict)
-  external_file.close()
+	with open(filename, "w") as external_file:
+		with contextlib.redirect_stdout(external_file):
+			print_commit_attr_to_screen(dict)
+	external_file.close()
 
 # parse arguments, there can be 2 - repo name and owner's name or 3 - + output filename
 
@@ -40,12 +40,12 @@ output = requests.get(url,headers={'Authorization': f'token {token}'})
 # If output file is specified dump stdout there, othwerwise print on screen
 
 if cliargs.fileout:
-  print_commit_attr_to_file(cliargs.fileout, output.json())
+	print_commit_attr_to_file(cliargs.fileout, output.json())
 elif not (cliargs.fileout and output): 
-  print_commit_attr_to_screen(output.json())
+	print_commit_attr_to_screen(output.json())
 else:
-  error_mesg = "Oops, no parameters, no data.."
-  print(error_mesg)
+	error_mesg = "Oops, no parameters, no data.."
+	print(error_mesg)
 
 # to do:
 # - error handling, parsing parameters
