@@ -17,3 +17,6 @@ W wyniku otrzymujemy:
   [fig.1](https://github.com/dominikmi/python-exercises/blob/main/distros/fig1.png)
 * Rozkład gęstości prawdopodobieństwa dla wysokości strat, wraz z załozoną tolerancją na ryzyko (na czerwono)
   [fig.2](https://github.com/dominikmi/python-exercises/blob/main/distros/fig2.png)
+* Średnia wysokośc straty (Average Loss) (np. 407,243.14 PLN)
+* Z wykresu na [fig.2](https://github.com/dominikmi/python-exercises/blob/main/distros/fig2.png) odczytujemy P(AL) - ok. 35%
+* **Wniosek**: Pomimo istniejących zabezpieczeń, ich skutecznośc w wyniku tego danego ataku nie przeciwdziała stratom, których wysokośc przekracza tolerancję na ryzyko.
