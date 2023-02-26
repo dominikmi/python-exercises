@@ -20,3 +20,5 @@ W wyniku otrzymujemy:
 * Średnia wysokośc straty (Average Loss) (np. 407,243.14 PLN)
 * Z wykresu na [fig.2](https://github.com/dominikmi/python-exercises/blob/main/distros/fig2.png) odczytujemy P(AL) - ok. 35%
 * **Wniosek**: Pomimo istniejących zabezpieczeń, ich skutecznośc w wyniku tego danego ataku nie przeciwdziała stratom, których wysokośc przekracza tolerancję na ryzyko.
+* **Wniosek 2**: Jeśli wykonamy symulację o tych samych parametrach, zmieniając jedynie zakres strat (do 500 000 PLN zamiast 1000000), to okaze się, ze istniejące zabezpieczenia 
+  powodują, ze P strat powyzej ok. 200 000 mieszczą się w zadanej tolerancji na ryzyko. ([fig.3](https://github.com/dominikmi/python-exercises/blob/main/distros/fig3.png))
