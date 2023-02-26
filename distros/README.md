@@ -9,6 +9,7 @@ Symulacja zdarzenia cyberbezpieczeństwa, w następstwie którego wystąpiła st
 * Skutecznośc zabezpieczeń w wymiarze obnizenia P(TE) - np. 50%
 * Załozona tolerancja na ryzyko z zadanym rozkładem.
 * Liczba symulacji (Monte Carlo) np. 10000
+* Rozkład P dla wystąpienia zdarzenia: log-normalny.
 
 W wyniku otrzymujemy:
 
