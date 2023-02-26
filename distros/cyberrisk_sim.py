@@ -75,6 +75,7 @@ def draw_loss_exceedance(lst, lst_for_risk_tolerance):
         ax.plot(x, perc, **{'color': 'green', 'marker': '.'})
     for x, perc in lst_for_risk_tolerance:
         ax.plot(x, perc, **{'color': 'red', 'marker': '.'})
+    ax.set_xscale('log')
     ax.set_xlabel('Loss magnitude')
     ax.set_ylabel('P(loss exceeded)')
     ax.set_title('Loss exceedance curve')
@@ -87,7 +88,7 @@ def draw_loss_exceedance(lst, lst_for_risk_tolerance):
 # górna granica oczekiwanej straty - LOSS(TE) -> UB = 1 000 000 PLN
 #
 # Istniejące środki bezpieczeństwa:
-# -> redukcja wystąpienia P(TE) o 70%
+# -> redukcja wystąpienia P(TE) o 50%
 #
 # Liczba symulacji: 1000
 #
@@ -103,8 +104,8 @@ TE = 0.1
 TE_LB = 100000
 TE_UB = 1000000
 STEP = 25000
-SEC_CTRL_RED = 0.7
-NO_SIMULATIONS = 1000
+SEC_CTRL_RED = 0.5
+NO_SIMULATIONS = 10000
 RISK_TOLERANCE = [[100000,90], [250000,50], [500000,20],[750000,5],[1000000,1]]
 
 # run:
