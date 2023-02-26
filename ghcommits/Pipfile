@@ -9,6 +9,8 @@ argparse = "*"
 pathlib = "*"
 hvac = "*"
 python-dotenv = "*"
+numpy = "*"
+matplotlib = "*"
 
 [dev-packages]
 
