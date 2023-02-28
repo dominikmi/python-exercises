@@ -71,15 +71,18 @@ def loss_exceedance_curve(sim_lst, TE_UB, STEP):
 
 def draw_loss_exceedance(lst, lst_for_risk_tolerance):
     fig, ax = plt.subplots()
-    for x, perc in lst:
-        ax.plot(x, perc, **{'color': 'green', 'marker': '.'})
-    for x, perc in lst_for_risk_tolerance:
-        ax.plot(x, perc, **{'color': 'red', 'marker': '.'})
+    for item in [lst, lst_for_risk_tolerance]:
+        x = []
+        y = []
+        for n, p in item:
+            x.append(n)
+            y.append(p)
+        ax.plot(x, y, linewidth=2)
     ax.set_xscale('log')
-    ax.set_xlabel('Loss magnitude')
-    ax.set_ylabel('P(loss exceeded)')
+    ax.set_xlabel('Loss magnitude in PLN [log]')
+    ax.set_ylabel('P(loss exceeded) in %')
     ax.set_title('Loss exceedance curve')
-    fig.savefig('fig2.png')
+    fig.savefig('fig3.png')
 
 #######################################################################
 # Przykład:
@@ -102,7 +105,7 @@ def draw_loss_exceedance(lst, lst_for_risk_tolerance):
 
 TE = 0.1
 TE_LB = 100000
-TE_UB = 1000000
+TE_UB = 500000
 STEP = 25000
 SEC_CTRL_RED = 0.5
 NO_SIMULATIONS = 10000
