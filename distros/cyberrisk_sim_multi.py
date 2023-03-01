@@ -69,14 +69,20 @@ import pandas as pd
 import numpy as np
 
 def threat_event_happened(event_p, reduct_p):
+    """A threat event occurs if a random number
+    falls below given probability"""
     return np.random.rand() < event_p*(1-reduct_p)
 
 def threat_event_loss(lower_bnd, upper_bnd):
+    """If threat event occured, let's get its loss it inflicts,
+    given lower and upper bounds of 90% CI"""
     mean = (np.log(lower_bnd) + np.log(upper_bnd))/2
     std_deviation = (np.log(upper_bnd) - np.log(lower_bnd))/3.29
     return round(float(np.random.lognormal(mean, std_deviation)),2)
 
 def loss_distribution(events_dict, no_of_simulations):
+    """Using Monte Carlo (number of simulations) get
+    a distribution of losses for the given list of estimated events"""
     i = 0
     event_keys = []
     events_keys = events_dict.keys()
@@ -96,6 +102,9 @@ def loss_distribution(events_dict, no_of_simulations):
     return sim_list # return a list of lists for each test for all events.
 
 def loss_distribution_reduced(events_dict, controls_dict, no_of_simulations):
+    """ If we want to see our security investments impact on given list of threat
+    events, we need to run Monte Carlo again reducing original threat event by the 
+    estimated impact in the given list of security controls"""
     i = 0
     events_keys = []
     events_keys = events_dict.keys()
@@ -115,6 +124,7 @@ def loss_distribution_reduced(events_dict, controls_dict, no_of_simulations):
     return sim_list # return a list of lists for each test for all events.
 
 def loss_average(lst):
+    """ This one is simple, I guess"""
     accu = 0
     for loss in lst:
         accu += loss
@@ -122,6 +132,8 @@ def loss_average(lst):
     return loss_ave
 
 def plot_loss_distribution(lst, fig_name):
+    """Plot the distribution of losses for both variants -
+    with and w/o security controls"""
     ax = 0
     losses_series = 0
     losses_series = pd.Series(lst)
@@ -134,6 +146,8 @@ def plot_loss_distribution(lst, fig_name):
     plt.close()
 
 def loss_exceedance_curve(lst, STEP):
+    """ Compute a list of LEC to see how good we are in terms of
+    probability and magnitude of losses"""
     loss_ex_lst = []
     losses_count = 0
     for loss in lst:
@@ -147,6 +161,7 @@ def loss_exceedance_curve(lst, STEP):
     return loss_ex_lst
 
 def plot_loss_exceedance(lst, lst_for_risk_tolerance, fig_name):
+    """ Plot the LEC"""
     fig, ax = plt.subplots()
     for item in [lst, lst_for_risk_tolerance]:
         x = []
@@ -163,6 +178,8 @@ def plot_loss_exceedance(lst, lst_for_risk_tolerance, fig_name):
     fig.clear()
 
 def total_sec_investments(sec_controls):
+    """ Give the total sum of all security investments and 
+    in this respect compare both LECs """
     controls_keys = sec_controls.keys()
     total_sum = 0
     for each_key in controls_keys:
