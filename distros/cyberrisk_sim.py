@@ -24,7 +24,7 @@ def threat_event_comp_by_sec(event_probability, ctrl_reduct):
 def loss_distribution(te_prob, ctrl_reduct, no_of_simulations, lower_bnd, upper_bnd):
     sim_lst = []
     for i in range(no_of_simulations):
-        if (threat_event_comp_by_sec(te_prob,ctrl_reduct)) > 0:
+        if (threat_event_comp_by_sec(te_prob,ctrl_reduct)):
             threat_loss = threat_event_loss(lower_bnd, upper_bnd)
             sim_lst.append("{:.2f}".format(threat_loss))
         else:
