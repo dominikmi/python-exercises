@@ -7,28 +7,28 @@
 #
 # Existing or planned security controls compensating P(TE) in %
 # 
-# Number of simulations: i.e. 1000
+# Number of simulations: i.e. 10000
 #
 # Presumed risk tolerance with the following distribution:
-#    50 000 EUR - 90%
-#   250 000 EUR - 50%
-#   500 000 EUR - 20%
-#   750 000 EUR -  5%
-# 1 000 000 EUR -  1%
-# 5 000 000 EUR -  0.1%
+#    100 000 EUR - 90%
+#    250 000 EUR - 50%
+#    500 000 EUR - 30%
+#    750 000 EUR - 15%
+#  1 000 000 EUR -  2%
+# 10 000 000 EUR -  0.2%
 ########################################################################
 
 # list of security events [probability, lower bound loss, upper bound loss, description]
 events = {
-    "event1": (0.11, 100000, 400000, "Successful DDoS on the cloud base core app"),
+    "event1": (0.21, 100000, 550000, "Successful DDoS on the cloud base core app"),
     "event2": (0.08, 500000, 1500000, "Sensitive data exfiltration"),
-    "event3": (0.03, 200000, 1000000, "Malicious code injected into production pipeline"),
-    "event4": (0.2, 10000, 100000, "Laptop with sensitive data lost/stolen"),
-    "event5": (0.12, 15000, 50000, "Malicious code in 3rd party dependencies"),
+    "event3": (0.15, 200000, 1000000, "Malicious code injected into production pipeline"),
+    "event4": (0.38, 10000, 100000, "Laptop with sensitive data lost/stolen"),
+    "event5": (0.17, 15000, 50000, "Malicious code in 3rd party dependencies"),
     "event6": (0.15, 1000, 150000, "Broken backups"),
-    "event7": (0.01, 1000000, 12000000, "Malware attack, knocked out internal network"),
+    "event7": (0.04, 1000000, 12000000, "Malware attack, knocked out internal network"),
     "event8": (0.05, 10000, 500000, "Insider's threat"),
-    "event9": (0.01, 100000, 500000, "Terrorist attack"),
+    "event9": (0.03, 100000, 11500000, "Terrorist attack"),
     "event10": (0.25, 5000, 50000, "Broken app release")
 }
 
@@ -36,30 +36,30 @@ events = {
 sec_controls = {
     "event1": (70000, 0.65),
     "event2": (200000, 0.55),
-    "event3": (250000, 0.7),
-    "event4": (30000, 0.7),
-    "event5": (25000, 0.4),
-    "event6": (100000, 0.9),
-    "event7": (800000, 0.85),
-    "event8": (250000, 0.5),
-    "event9": (300000, 0.6),
+    "event3": (77000, 0.7),
+    "event4": (30000, 0.37),
+    "event5": (25000, 0.42),
+    "event6": (100000, 0.62),
+    "event7": (230000, 0.85),
+    "event8": (121000, 0.47),
+    "event9": (130000, 0.6),
     "event10": (25000, 0.45)
 }
 
 # defined risk tolerance
 risk_tolerance = [
     (100000, 90), 
-    (250000, 80), 
-    (500000, 40), 
+    (250000, 50), 
+    (500000, 30), 
     (750000, 15), 
     (1000000, 2), 
-    (10000000, 0.1)
+    (10000000, 0.2)
 ]
 
 # simulation parameters
 
 STEP = 5000
-NO_SIMULATIONS = 1000
+NO_SIMULATIONS = 10000
 
 
 ### computing functions
@@ -121,7 +121,7 @@ def loss_average(lst):
     loss_ave = round(accu/len(lst), 2)
     return loss_ave
 
-def draw_loss_distribution(lst, fig_name):
+def plot_loss_distribution(lst, fig_name):
     ax = 0
     losses_series = 0
     losses_series = pd.Series(lst)
@@ -133,12 +133,11 @@ def draw_loss_distribution(lst, fig_name):
     ax.cla()
     plt.close()
 
-
 def loss_exceedance_curve(lst, STEP):
     loss_ex_lst = []
     losses_count = 0
-#    for loss in lst:
-#        if loss > 0: losses_count += 1
+    for loss in lst:
+        if loss > 0: losses_count += 1
     for x in range(0,5000000,STEP):
         accu = 0
         for loss in lst:
@@ -147,7 +146,7 @@ def loss_exceedance_curve(lst, STEP):
         loss_ex_lst.append([x,round(accu/len(lst),2)*100])
     return loss_ex_lst
 
-def draw_loss_exceedance(lst, lst_for_risk_tolerance, fig_name):
+def plot_loss_exceedance(lst, lst_for_risk_tolerance, fig_name):
     fig, ax = plt.subplots()
     for item in [lst, lst_for_risk_tolerance]:
         x = []
@@ -163,22 +162,30 @@ def draw_loss_exceedance(lst, lst_for_risk_tolerance, fig_name):
     fig.savefig(fig_name)
     fig.clear()
 
+def total_sec_investments(sec_controls):
+    controls_keys = sec_controls.keys()
+    total_sum = 0
+    for each_key in controls_keys:
+        total_sum += sec_controls[each_key][0]
+    return total_sum
+
 # run
 
 losses_no_ctrls = loss_distribution(events, NO_SIMULATIONS)
 losses_with_ctrls = loss_distribution_reduced(events, sec_controls, NO_SIMULATIONS)
 
-# draw loss distribution without security controls in place
-draw_loss_distribution(losses_no_ctrls, 'Fig-1.png')
+# plot loss distribution without security controls in place
+plot_loss_distribution(losses_no_ctrls, 'Fig-1.png')
 
-# draw loss distribution with security controls in place
-draw_loss_distribution(losses_with_ctrls, 'Fig-2.png')
+# plot loss distribution with security controls in place
+plot_loss_distribution(losses_with_ctrls, 'Fig-2.png')
 
 print("Average loss: {:,.2f} EUR with no controls in place".format(loss_average(losses_no_ctrls)))
 print("Average loss: {:,.2f} EUR with controls in place".format(loss_average(losses_with_ctrls)))
+print("Total security investments: {:,.2f} EUR: ".format(total_sec_investments(sec_controls)))
 
-# draw loss esceedance curve without security controls in place
-draw_loss_exceedance(loss_exceedance_curve(losses_no_ctrls, STEP), risk_tolerance, "Fig-3.png")
+# plot loss exceedance curve without security controls in place
+plot_loss_exceedance(loss_exceedance_curve(losses_no_ctrls, STEP), risk_tolerance, "Fig-3.png")
 
-# draw loss esceedance curve with security controls in place
-draw_loss_exceedance(loss_exceedance_curve(losses_with_ctrls, STEP), risk_tolerance, "Fig-4.png")
+# plot loss exceedance curve with security controls in place
+plot_loss_exceedance(loss_exceedance_curve(losses_with_ctrls, STEP), risk_tolerance, "Fig-4.png")
