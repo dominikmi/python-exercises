@@ -28,7 +28,7 @@ events = {
     "event6": (0.15, 1000, 150000, "Broken backups"),
     "event7": (0.04, 1000000, 12000000, "Malware attack, knocked out internal network"),
     "event8": (0.05, 10000, 500000, "Insider's threat"),
-    "event9": (0.03, 100000, 11500000, "Terrorist attack"),
+    "event9": (0.03, 1000000, 11500000, "Terrorist attack"),
     "event10": (0.25, 5000, 50000, "Broken app release")
 }
 
