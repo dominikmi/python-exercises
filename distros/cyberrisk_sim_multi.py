@@ -1,4 +1,6 @@
-#######################################################################
+###################################################################################
+# Based on "How to measure anything in Cybersecurity" by D. Hubbard and R. Seiersen
+# 
 # Example:
 # A list of security events with adverse consequences with P(TE) = in %
 # and 90% of confidence interval:
@@ -16,7 +18,7 @@
 #    750 000 EUR - 15%
 #  1 000 000 EUR -  2%
 # 10 000 000 EUR -  0.2%
-########################################################################
+####################################################################################
 
 # list of security events [probability, lower bound loss, upper bound loss, description]
 events = {
