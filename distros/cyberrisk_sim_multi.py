@@ -151,9 +151,6 @@ def loss_exceedance_curve(lst, STEP):
     """ Compute a list of LEC to see how good we are in terms of
     probability and magnitude of losses"""
     loss_ex_lst = []
-    losses_count = 0
-    for loss in lst:
-        if loss > 0: losses_count += 1
     for x in range(0,5000000,STEP):
         accu = 0
         for loss in lst:
