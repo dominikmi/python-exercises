@@ -127,11 +127,7 @@ def loss_distribution_reduced(events_dict, controls_dict, no_of_simulations):
 
 def loss_average(lst):
     """ This one is simple, I guess"""
-    accu = 0
-    for loss in lst:
-        accu += loss
-    loss_ave = round(accu/len(lst), 2)
-    return loss_ave
+    return round(np.mean(lst),2)
 
 def plot_loss_distribution(lst, fig_name):
     """Plot the distribution of losses for both variants -
