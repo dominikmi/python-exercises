@@ -4,12 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-matplotlib = "*"
 numpy = "*"
 pandas = "*"
+matplotlib = "*"
 
 [dev-packages]
-black = "*"
 
 [requires]
 python_version = "3.11"
+python_full_version = "3.11.2"
