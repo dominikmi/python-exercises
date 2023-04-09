@@ -1,0 +1,11 @@
+events,probability,lb_loss,ub_loss,description
+event1,0.21,100000,550000,Successful DDoS on the cloud base core app
+event2,0.08,500000,1500000,Sensitive data exfiltration
+event3,0.15,200000,1000000,Malicious code injected into production pipeline
+event4,0.38,10000,100000,Laptop with sensitive data lost/stolen
+event5,0.17,15000,50000,Malicious code in 3rd party dependencies
+event6,0.15,1000,150000,Broken backups
+event7,0.04,1000000,12000000,"Malware attack, knocked out internal network"
+event8,0.05,10000,500000,Insider's threat
+event9,0.03,1000000,11500000,Terrorist attack
+event10,0.25,5000,50000,Broken app release

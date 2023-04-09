@@ -1,0 +1,11 @@
+events,cost,mitigation
+event1,70000,0.65
+event2,200000,0.55
+event3,77000,0.7
+event4,30000,0.37
+event5,25000,0.42
+event6,100000,0.62
+event7,230000,0.85
+event8,121000,0.47
+event9,130000,0.6
+event10,25000,0.45
