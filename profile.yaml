@@ -1,0 +1,13 @@
+version: 1.0
+specs:
+- type: "Public"
+- owner: "Dominik Miklaszewski"
+- team: "RiskOps"
+- purpose: |
+    Risk computing proofs of concept
+- deployment: "VM"
+security:
+  secrets: True
+  sca: True
+  sast: False
+  container: False
