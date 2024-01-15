@@ -10,11 +10,11 @@ scipy = "*"
 seaborn = "*"
 empiricaldist = "*"
 matplotlib = "*"
-jupyter = "*"
 jupyterlab = "*"
 ipykernel = "*"
+pydantic = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.11"
+python_version = "3.12"
